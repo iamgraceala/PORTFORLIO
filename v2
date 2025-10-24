@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MARY GRACE R. ALA - Graphic Designer Portfolio</title>
+    
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configure Tailwind to use the Arimo, Inter, and Permanent Marker fonts and custom colors -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Arimo', 'sans-serif'],
+                        // New handwritten font for the splash screen
+                        handwritten: ['Permanent Marker', 'cursive'], 
+                    },
+                    colors: {
+                        'primary-blue': '#003670', // Deep Navy Blue
+                        'light-bg': '#fcfafd', // Near-white, soft background
+                        'dark-text': '#111000', // Near-black for contrast
+                        'accent-gold': '#ffc300', // A pop of gold for highlights
+                        'soft-pink': '#f7e7e4', // Color matching the button in the reference image
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Import Fonts: Arimo, Inter, and Permanent Marker for the handwritten effect -->
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=Inter:wght@400;600;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Custom styles for colors and scrolling */
+        .text-dark-text { color: #111000; }
+        .bg-light-bg { background-color: #fcfafd; }
+        .text-primary-blue { color: #003670; }
+        html { scroll-behavior: smooth; }
+
+        /* Subtle background pattern for the hero section and splash screen */
+        #hero::before,
+        .splash-pattern-bg::before { /* Added splash-pattern-bg for the loading screen */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e0eaf6' fill-opacity='0.5'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm10 10v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm10 10v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm-30 0v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm-30 0v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM60 4v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm-30 0v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm-30 0v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm50 20v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm-30 0v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM26 6v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm4 28v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm10 10v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm-30 0v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm-30 0v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM56 6v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm-30 0v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm-30 0v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM60 24v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm-30 0v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4z'%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            z-index: 0;
+            opacity: 0.5;
+        }
+
+        /* Custom hero graphic container for perspective/layered effect */
+        .hero-graphic-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            height: 400px;
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .layered-image {
+            position: absolute;
+            width: 80%;
+            height: auto;
+            opacity: 0.8;
+            transform: translate(-10%, 10%) rotate(-5deg);
+            transition: all 0.5s;
+        }
+        .laptop-image {
+            position: absolute;
+            width: 100%;
+            height: auto;
+            z-index: 10;
+            box-shadow: 0 20px 40px rgba(0, 54, 112, 0.25);
+            transform: translate(0, 0) scale(1);
+            transition: all 0.5s;
+        }
+
+        /* Ensure responsiveness on mobile by reducing size/height */
+        @media (max-width: 768px) {
+            .hero-graphic-container {
+                height: 300px;
+            }
+        }
+        
+        /* Styling for the large, tracked headline text */
+        .hero-headline {
+            font-size: 4rem;
+            line-height: 1.0;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+        }
+
+        @media (min-width: 768px) {
+            .hero-headline {
+                font-size: 6rem;
+            }
+        }
+
+        /* Custom Card styles */
+        .project-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 54, 112, 0.15);
+            border-top: 4px solid #003670;
+            border-bottom: 1px solid #003670;
+        }
+
+        /* Modal specific styles */
+        .modal {
+            transition: opacity 0.3s ease-out;
+            visibility: hidden;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .modal.open {
+            visibility: visible;
+            opacity: 1;
+            pointer-events: auto;
+        }
+    </style>
+</head>
+<body class="font-sans text-dark-text bg-light-bg antialiased">
+    
+    <!-- SPLASH SCREEN START -->
+    <!-- Updated background to match the hero section -->
+    <div id="splash-screen" class="fixed inset-0 z-[200] bg-white splash-pattern-bg flex items-center justify-center transition-opacity duration-1000 ease-out">
+        <!-- Updated text and color for readability on the light background -->
+        <h1 id="splash-text" class="text-dark-text text-5xl sm:text-7xl font-handwritten opacity-0 transition-opacity duration-700 ease-in-out max-w-lg text-center leading-snug p-4">
+            Hi, I'm a freelance Graphic Designer.
+        </h1>
+    </div>
+    <!-- SPLASH SCREEN END -->
+
+    <!-- MAIN PORTFOLIO CONTENT (Initially Hidden) -->
+    <div id="main-content" class="hidden">
+
+        <!-- Header & Navigation -->
+        <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-lg">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-4">
+                <a href="#" class="text-3xl font-extrabold tracking-widest text-primary-blue">
+                    ALA <span class="text-accent-gold">.</span>
+                </a>
+                <nav class="hidden md:flex space-x-10 text-base font-semibold uppercase">
+                    <a href="#about" class="hover:text-accent-gold transition duration-150 relative group">
+                        About
+                        <span class="absolute bottom-0 left-0 w-full h-0.5 bg-accent-gold origin-left transform scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></span>
+                    </a>
+                    <a href="#projects" class="hover:text-accent-gold transition duration-150 relative group">
+                        Projects
+                        <span class="absolute bottom-0 left-0 w-full h-0.5 bg-accent-gold origin-left transform scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></span>
+                    </a>
+                    <a href="#contact" class="hover:text-accent-gold transition duration-150 relative group">
+                        Contact
+                        <span class="absolute bottom-0 left-0 w-full h-0.5 bg-accent-gold origin-left transform scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></span>
+                    </a>
+                </nav>
+                <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg hover:bg-gray-100 transition duration-150">
+                    <svg class="w-6 h-6 text-primary-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+            <!-- Mobile Menu (Hidden by default) -->
+            <div id="mobile-menu" class="hidden md:hidden bg-white shadow-inner">
+                <a href="#about" class="block px-6 py-3 text-sm font-medium hover:bg-gray-50 transition duration-150 border-t border-gray-100" onclick="document.getElementById('mobile-menu').classList.add('hidden')">About</a>
+                <a href="#projects" class="block px-6 py-3 text-sm font-medium hover:bg-gray-50 transition duration-150 border-t border-gray-100" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Projects</a>
+                <a href="#contact" class="block px-6 py-3 text-sm font-medium hover:bg-gray-50 transition duration-150 border-t border-gray-100" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Contact</a>
+            </div>
+        </header>
+
+        <main>
+            <!-- Hero Section (Redesigned for the EXPLORE INNOVATE style) -->
+            <section id="hero" class="relative overflow-hidden pt-24 pb-32 md:pt-36 md:pb-48 bg-white">
+                <div class="absolute inset-0 z-0"></div> <!-- Pattern is here via CSS -->
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div class="md:flex md:items-center md:space-x-16">
+                        
+                        <!-- Left Column: Headline and CTA -->
+                        <div class="md:w-1/2">
+                            <span class="text-xl text-dark-text font-normal uppercase tracking-widest block mb-4">
+                                Portfolio by Grace
+                            </span>
+                            
+                            <!-- The new large, tracked headline -->
+                            <div class="hero-headline text-dark-text mb-6">
+                                <span class="block">EXPLORE</span>
+                                <span class="block">INNOVATE</span>
+                            </div>
+                            
+                            <h2 class="text-xl font-medium text-gray-700 mb-8 max-w-lg tracking-wider">
+                                Bringing ideas to life through compelling visual design, specializing in branding, mockups, and creative editing.
+                            </h2>
+                            
+                            <!-- CTA Button in the soft pink/tan color -->
+                            <a href="#projects" class="inline-flex items-center justify-center space-x-2 px-8 py-3.5 text-lg font-bold text-dark-text bg-soft-pink rounded-lg shadow-lg hover:bg-soft-pink/80 transition duration-300 transform hover:scale-[1.02] uppercase tracking-wider">
+                                OUR PORTFOLIO
+                            </a>
+                        </div>
+                        
+                        <!-- Right Column: Layered Graphic Mockup -->
+                        <div class="md:w-1/2 mt-16 md:mt-0 flex justify-center md:justify-end">
+                            <div class="hero-graphic-container">
+                                <!-- Background Layer (The layered screens graphic) -->
+                                <img src="__image_asset_url('image_201a3c.png-86da8207-1ad8-4970-82f3-6cd2d931dd88')" 
+                                     onerror="this.onerror=null; this.src='https://placehold.co/400x350/c0d5e8/111000?text=BACKGROUND+MOCKUPS';"
+                                     alt="Background layered screens" 
+                                     class="layered-image rounded-xl"/>
+                                
+                                <!-- Foreground Layer (The explicit laptop image) -->
+                                <img src="__image_asset_url('image_1f938d.png-8cd4ab43-5998-46c9-bfda-5a9fa40b8ff2')" 
+                                     onerror="this.onerror=null; this.src='https://placehold.co/500x300/e0e0e0/111000?text=LAPTOP+MOCKUP';"
+                                     alt="Prominent laptop mockup graphic" 
+                                     class="laptop-image rounded-xl"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Section (Layout preserved from previous step) -->
+            <section id="about" class="py-24 md:py-36 bg-primary-blue/5">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+                    <!-- Main Grid Layout: Profile Picture (Left) | Content Stack (Right) -->
+                    <div class="grid grid-cols-1 lg:grid-cols-[1fr_2.5fr] gap-12 items-start">
+                        
+                        <!-- COLUMN 1: Profile Picture (Left, large) -->
+                        <div class="flex flex-col items-center lg:items-start lg:sticky lg:top-24">
+                            <img src="__image_asset_url('image_2a9642.png-c9325a7a-1cc5-4fe7-99d5-d87ebf536ef8')" 
+                                 onerror="this.onerror=null; this.src='https://placehold.co/300x300/ffc300/003670?text=Profile';"
+                                 alt="Mary Grace R. Ala Profile Picture" 
+                                 class="w-64 h-64 sm:w-80 sm:h-80 rounded-full object-cover shadow-2xl border-4 border-accent-gold p-1 mb-6"/>
+                            
+                            <h4 class="text-2xl font-semibold text-primary-blue mt-4">MARY GRACE R. ALA</h4>
+                            <p class="text-sm text-gray-600">Freelance Graphic Designer</p>
+                        </div>
+
+                        <!-- COLUMN 2: Content Stack (Right) -->
+                        <div>
+                            
+                            <!-- 1. GET TO KNOW ME (Bio) -->
+                            <div class="mb-16">
+                                <h3 class="text-4xl font-extrabold text-dark-text mb-6 border-b border-gray-200 pb-3">GET TO KNOW ME</h3>
+                                <p class="text-xl leading-relaxed text-gray-700 mb-6">
+                                    What started as a fun hobby turned into something I truly enjoy—and even better, it allows me to help others bring their ideas to life through design. I create compelling visuals using a professional approach to mockups, presentations, and branding.
+                                </p>
+                                
+                                <p class="text-lg leading-relaxed text-gray-700 font-medium italic border-l-4 border-accent-gold pl-4 bg-white p-4 rounded-xl shadow-lg">
+                                    "I create logos, visual presentations, mockups, and all sorts of creative edits. I work with tools like Adobe Photoshop, Illustrator, and Canva to craft designs that match each client's unique style and purpose."
+                                </p>
+                            </div>
+
+                            <!-- 2. MY DESIGN TOOLKIT (Logos) -->
+                            <div class="mt-16 mb-16">
+                                <h4 class="text-3xl font-extrabold text-primary-blue mb-8 border-b border-gray-200 pb-3 text-center lg:text-left">MY DESIGN TOOLKIT</h4>
+                                
+                                <!-- Toolkit Grid with Logos - Centered on Mobile -->
+                                <div class="grid grid-cols-3 gap-8 max-w-lg mx-auto lg:mx-0">
+                                    <!-- Tool 1: Photoshop -->
+                                    <div class="flex flex-col items-center text-center p-4 bg-white rounded-xl shadow-lg transition duration-300 hover:bg-primary-blue/5 transform hover:scale-[1.05]">
+                                        <!-- Icon: Ps logo style (Blue/Cyan) -->
+                                        <div class="w-16 h-16 flex items-center justify-center bg-[#007ACF] text-white font-black text-3xl rounded-lg shadow-lg mb-3 border-2 border-[#16A085]">
+                                            Ps
+                                        </div>
+                                        <p class="text-lg font-bold text-dark-text mt-2">Photoshop</p>
+                                    </div>
+
+                                    <!-- Tool 2: Illustrator -->
+                                    <div class="flex flex-col items-center text-center p-4 bg-white rounded-xl shadow-lg transition duration-300 hover:bg-primary-blue/5 transform hover:scale-[1.05]">
+                                        <!-- Icon: Ai logo style (Orange/Red) -->
+                                        <div class="w-16 h-16 flex items-center justify-center bg-[#FF7C00] text-white font-black text-3xl rounded-lg shadow-lg mb-3 border-2 border-[#E67E22]">
+                                            Ai
+                                        </div>
+                                        <p class="text-lg font-bold text-dark-text mt-2">Illustrator</p>
+                                    </div>
+
+                                    <!-- Tool 3: Canva -->
+                                    <div class="flex flex-col items-center text-center p-4 bg-white rounded-xl shadow-lg transition duration-300 hover:bg-primary-blue/5 transform hover:scale-[1.05]">
+                                        <!-- Icon: C logo style (Purple/Blue) -->
+                                        <div class="w-16 h-16 flex items-center justify-center bg-[#6D34C0] text-white font-black text-3xl rounded-lg shadow-lg mb-3 border-2 border-[#8E44AD]">
+                                            C
+                                        </div>
+                                        <p class="text-lg font-bold text-dark-text mt-2">Canva Pro</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 3. GET IN TOUCH (Contact Links) -->
+                            <div class="mt-16 pt-8 border-t border-gray-300">
+                                <h4 class="text-3xl font-extrabold text-dark-text mb-8 text-center lg:text-left">GET IN TOUCH</h4>
+                                
+                                <div class="flex flex-wrap justify-center lg:justify-start space-x-6 sm:space-x-10 text-center">
+                                    
+                                    <!-- Contact 1: Email -->
+                                    <a href="mailto:marygracerolan.ala@bical-u.edu.ph" class="flex flex-col items-center group mb-4">
+                                        <svg class="w-10 h-10 text-primary-blue group-hover:text-accent-gold transition" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                        <span class="text-sm mt-2 text-gray-700 group-hover:text-dark-text font-medium">insert my email here</span>
+                                    </a>
+
+                                    <!-- Contact 2: Facebook/LinkedIn (Using FB icon as per sketch) -->
+                                    <a href="https://www.linkedin.com/in/marygraceta" target="_blank" class="flex flex-col items-center group mb-4">
+                                        <!-- Facebook Icon -->
+                                        <div class="w-10 h-10 flex items-center justify-center text-primary-blue group-hover:text-accent-gold transition">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-full h-full" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 5.14 3.733 9.423 8.608 10.18V14.806h-2.54v-3.09h2.54v-2.296c0-2.515 1.492-3.89 3.777-3.89 1.094 0 2.247.195 2.247.195v2.47h-1.258c-1.247 0-1.638.775-1.638 1.569v1.882h2.773l-.443 3.09h-2.33V22.18C18.267 21.423 22 17.14 22 12c0-5.523-4.477-10-10-10z"/></svg>
+                                        </div>
+                                        <span class="text-sm mt-2 text-gray-700 group-hover:text-dark-text font-medium">insert my fb link</span>
+                                    </a>
+
+                                    <!-- Contact 3: Instagram (Using generic square icon as per sketch) -->
+                                    <a href="#" target="_blank" class="flex flex-col items-center group mb-4">
+                                        <svg class="w-10 h-10 text-primary-blue group-hover:text-accent-gold transition" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4a2 2 0 012-2h8z"></path></svg>
+                                        <span class="text-sm mt-2 text-gray-700 group-hover:text-dark-text font-medium">insert my ig link</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section id="projects" class="py-24 md:py-36">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h3 class="text-4xl font-bold text-dark-text mb-16 text-center">
+                        FEATURED PROJECTS
+                    </h3>
+
+                    <!-- Project Category: Logos -->
+                    <div class="mb-20">
+                        <h4 class="text-3xl font-bold text-primary-blue mb-8 border-b border-gray-200 pb-3">Logo Design & Identity</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                            
+                            <!-- Project 1: OVPAA Logo Draft (Clickable) -->
+                            <div class="project-card bg-white rounded-xl shadow-lg overflow-hidden" onclick="openModal('ovpaa')">
+                                <img class="w-full h-60 object-cover card-image-placeholder border-b border-gray-100" 
+                                     src="__image_asset_url('image_2095df.png-d3279ef2-91b2-48f9-9363-008eed09e495')"
+                                     onerror="this.onerror=null; this.src='https://placehold.co/600x400/003670/FCFAFD?text=OVPAA+Logo+Mockup&font=Arimo';"
+                                     alt="OVPAA Logo Design Mockup"/>
+                                <div class="p-6">
+                                    <p class="text-xl font-bold text-dark-text">DRAFTED LOGO DESIGN (OVPAA)</p>
+                                    <p class="text-sm text-gray-500 mt-1">Brand Identity / Academic Affairs</p>
+                                    <span class="inline-block mt-3 px-3 py-1 text-xs font-semibold text-primary-blue bg-primary-blue/10 rounded-full">Logo</span>
+                                </div>
+                            </div>
+
+                            <!-- Project 2: Abstract Logo (Clickable) -->
+                            <div class="project-card bg-white rounded-xl shadow-lg overflow-hidden" onclick="openModal('abstract')">
+                                <img class="w-full h-60 object-cover card-image-placeholder border-b border-gray-100" 
+                                     src="__image_asset_url('image_208eb1.png-eebc1547-1a15-4721-b339-0b453a1892e6')"
+                                     onerror="this.onerror=null; this.src='https://placehold.co/600x400/ffc300/111000?text=Abstract+Logo+Concept&font=Arimo';"
+                                     alt="Abstract Logo Concept"/>
+                                <div class="p-6">
+                                    <p class="text-xl font-bold text-dark-text">Abstract Logo Concept</p>
+                                    <p class="text-sm text-gray-500 mt-1">Concept focusing on geometry and color</p>
+                                    <span class="inline-block mt-3 px-3 py-1 text-xs font-semibold text-accent-gold bg-accent-gold/10 rounded-full">Abstract</span>
+                                </div>
+                            </div>
+
+                            <!-- Project 3: CUPAA/CUPA Branding (Clickable) -->
+                            <div class="project-card bg-white rounded-xl shadow-lg overflow-hidden" onclick="openModal('cupaa')">
+                                <img class="w-full h-60 object-cover card-image-placeholder border-b border-gray-100" 
+                                     src="__image_asset_url('image_2af7c0.png-d4184b87-cc08-440d-908a-5441b6105bf1')"
+                                     onerror="this.onerror=null; this.src='https://placehold.co/600x400/111000/FCFAFD?text=CUPAA+Branding+Palette&font=Arimo';"
+                                     alt="CUPAA Brand Identity Concept"/>
+                                <div class="p-6">
+                                    <p class="text-xl font-bold text-dark-text">CUPAA Brand Identity Concept</p>
+                                    <p class="text-sm text-gray-500 mt-1">Focus on color palette and typography.</p>
+                                    <span class="inline-block mt-3 px-3 py-1 text-xs font-semibold text-dark-text bg-gray-200 rounded-full">Branding</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project Category: Brand Identity / Mockups -->
+                    <div class="mb-20">
+                        <h4 class="text-3xl font-bold text-primary-blue mb-8 border-b border-gray-200 pb-3">Packaging & Mockups</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                            
+                            <!-- Project 4: ENDLESS CARE Skincare Branding (Clickable) -->
+                            <div class="project-card bg-white rounded-xl shadow-lg overflow-hidden" onclick="openModal('endlesscare_skincare')">
+                                <img class="w-full h-60 object-cover card-image-placeholder border-b border-gray-100" 
+                                     src="__image_asset_url('image_2a87dd.png-060f697f-fcec-4713-b6f0-5349f9fae721')"
+                                     onerror="this.onerror=null; this.src='https://placehold.co/600x400/e91e63/FCFAFD?text=ENDLESS+CARE+Mockup&font=Arimo';"
+                                     alt="Skincare Journey Mockup"/>
+                                <div class="p-6">
+                                    <p class="text-xl font-bold text-dark-text">Skincare Journey Mockup</p>
+                                    <p class="text-sm text-gray-500 mt-1">Cosmetics packaging and brand application.</p>
+                                    <span class="inline-block mt-3 px-3 py-1 text-xs font-semibold text-pink-700 bg-pink-100 rounded-full">Packaging</span>
+                                </div>
+                            </div>
+
+                            <!-- Project 5: ENDLESS CARE Pattern (Clickable) -->
+                            <div class="project-card bg-white rounded-xl shadow-lg overflow-hidden" onclick="openModal('endlesscare_pattern')">
+                                <img class="w-full h-60 object-cover card-image-placeholder border-b border-gray-100" 
+                                     src="https://placehold.co/600x400/f48fb1/111000?text=ENDLESS+CARE+Pattern&font=Arimo"
+                                     onerror="this.onerror=null; this.src='https://placehold.co/600x400/f48fb1/111000?text=Brand+Pattern&font=Arimo';"
+                                     alt="ENDLESS CARE Brand Pattern"/>
+                                <div class="p-6">
+                                    <p class="text-xl font-bold text-dark-text">Brand Pattern Design</p>
+                                    <p class="text-sm text-gray-500 mt-1">Visual texture/repeat element for branding.</p>
+                                    <span class="inline-block mt-3 px-3 py-1 text-xs font-semibold text-pink-700 bg-pink-100 rounded-full">Pattern</span>
+                                </div>
+                            </div>
+
+                            <!-- Project 6: SmartBus Poster (Clickable) -->
+                            <div class="project-card bg-white rounded-xl shadow-lg overflow-hidden" onclick="openModal('smartbus')">
+                                <img class="w-full h-60 object-cover card-image-placeholder border-b border-gray-100" 
+                                     src="https://placehold.co/600x400/00b894/FCFAFD?text=SMARTBUS+Poster&font=Arimo"
+                                     onerror="this.onerror=null; this.src='https://placehold.co/600x400/00b894/FCFAFD?text=SmartBus+Ad&font=Arimo';"
+                                     alt="SmartBus Promotional Poster"/>
+                                <div class="p-6">
+                                    <p class="text-xl font-bold text-dark-text">SmartBus Promotional Poster</p>
+                                    <p class="text-sm text-gray-500 mt-1">Focus on sustainable mobility theme.</p>
+                                    <span class="inline-block mt-3 px-3 py-1 text-xs font-semibold text-green-700 bg-green-100 rounded-full">Poster</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project Category: Posters / Promotional -->
+                    <div>
+                        <h4 class="text-3xl font-bold text-primary-blue mb-8 border-b border-gray-200 pb-3">Posters & Promotional</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                            
+                            <!-- Project 7: Event Poster (Clickable) -->
+                            <div class="project-card bg-white rounded-xl shadow-lg overflow-hidden" onclick="openModal('event_poster')">
+                                <img class="w-full h-60 object-cover card-image-placeholder border-b border-gray-100" 
+                                     src="https://placehold.co/600x400/00b894/FCFAFD?text=Sustainable+Mobility+Poster&font=Arimo"
+                                     onerror="this.onerror=null; this.src='https://placehold.co/600x400/00b894/FCFAFD?text=SmartBus+Ad&font=Arimo';"
+                                     alt="SmartBus Promotional Poster"/>
+                                <div class="p-6">
+                                    <p class="text-xl font-bold text-dark-text">SmartBus Event Poster</p>
+                                    <p class="text-sm text-gray-500 mt-1">Event marketing design.</p>
+                                    <span class="inline-block mt-3 px-3 py-1 text-xs font-semibold text-green-700 bg-green-100 rounded-full">Poster</span>
+                                </div>
+                            </div>
+
+                            <!-- Project 8: Sandwich Cookie Poster (Clickable) -->
+                            <div class="project-card bg-white rounded-xl shadow-lg overflow-hidden" onclick="openModal('cookie_ad')">
+                                <img class="w-full h-60 object-cover card-image-placeholder border-b border-gray-100" 
+                                     src="https://placehold.co/600x400/ffa500/111000?text=SANDWICH+COOKIE+AD&font=Arimo"
+                                     onerror="this.onerror=null; this.src='https://placehold.co/600x400/ffa500/111000?text=Cookies+Promo+Ad&font=Arimo';"
+                                     alt="Food Promotional Poster"/>
+                                <div class="p-6">
+                                    <p class="text-xl font-bold text-dark-text">Sandwich Cookie Ad Layout</p>
+                                    <p class="text-sm text-gray-500 mt-1">Design for sandwich cookies and beverage.</p>
+                                    <span class="inline-block mt-3 px-3 py-1 text-xs font-semibold text-yellow-700 bg-yellow-100 rounded-full">Ad Layout</span>
+                                </div>
+                            </div>
+
+                            <!-- Project 9: Generic Sample Poster (Clickable) -->
+                            <div class="project-card bg-white rounded-xl shadow-lg overflow-hidden" onclick="openModal('generic_poster')">
+                                <img class="w-full h-60 object-cover card-image-placeholder border-b border-gray-100" 
+                                     src="https://placehold.co/600x400/e74c3c/FCFAFD?text=High-Impact+Event+Design&font=Arimo"
+                                     onerror="this.onerror=null; this.src='https://placehold.co/600x400/e74c3c/FCFAFD?text=Sample+Poster&font=Arimo';"
+                                     alt="General Poster Concept"/>
+                                <div class="p-6">
+                                    <p class="text-xl font-bold text-dark-text">Generic Sample Poster</p>
+                                    <p class="text-sm text-gray-500 mt-1">High-impact layout for events or announcements.</p>
+                                    <span class="inline-block mt-3 px-3 py-1 text-xs font-semibold text-red-700 bg-red-100 rounded-full">Poster</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Call to Action / Contact -->
+            <section id="contact" class="py-20 md:py-32 bg-primary-blue text-white">
+                <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+                    <h3 class="text-5xl font-bold mb-4 text-accent-gold">
+                        Let's Create Something Amazing.
+                    </h3>
+                    <p class="text-xl font-light text-blue-100 mb-10">
+                        Ready to collaborate? Reach out, and let's bring your vision to life through compelling design.
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center space-y-5 sm:space-y-0 sm:space-x-8">
+                        <a href="mailto:marygracerolan.ala@bical-u.edu.ph" class="inline-flex items-center justify-center space-x-2 px-10 py-4 text-lg font-bold text-primary-blue bg-accent-gold rounded-full shadow-2xl shadow-accent-gold/50 hover:bg-yellow-400 transition duration-300 transform hover:scale-[1.05]">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            <span>Send Email</span>
+                        </a>
+                        <a href="https://www.linkedin.com/in/marygraceta" target="_blank" class="inline-flex items-center justify-center space-x-2 px-10 py-4 text-lg font-bold text-white border-2 border-accent-gold rounded-full hover:bg-blue-800 transition duration-300 transform hover:scale-[1.05]">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M22.23 0H1.77C.79 0 0 .79 0 1.77v20.46c0 .98.79 1.77 1.77 1.77h20.46c.98 0 1.77-.79 1.77-1.77V1.77c0-.98-.79-1.77-1.77-1.77zM7.18 19.38H3.86V9.32h3.32v10.06zM5.52 7.82c-1.11 0-2.01-.9-2.01-2.01s.9-2.01 2.01-2.01 2.01.9 2.01 2.01-.9 2.01-2.01 2.01zM20.24 19.38h-3.31v-5.27c0-1.26-.02-2.88-1.75-2.88-1.75 0-2.02 1.36-2.02 2.78v5.37h-3.32V9.32h3.19v1.46h.05c.44-.84 1.54-1.73 3.14-1.73 3.36 0 3.99 2.21 3.99 5.09v6.54z"/></svg>
+                            <span>LinkedIn</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+        <!-- Project Modal (Lightbox) -->
+        <div id="project-modal" class="modal fixed inset-0 z-[100] flex items-center justify-center p-4" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+            <!-- Overlay -->
+            <div class="fixed inset-0 bg-dark-text/80 transition-opacity" onclick="closeModal()"></div>
+
+            <!-- Modal Content -->
+            <div class="bg-white rounded-xl shadow-3xl overflow-y-auto max-w-6xl w-full max-h-[90vh] relative z-10 transform transition-all">
+                <!-- Close Button -->
+                <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-dark-text transition duration-150 p-2 rounded-full bg-white/50 backdrop-blur-sm z-20">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+                
+                <div class="p-6 sm:p-10">
+                    <h3 id="modal-title" class="text-4xl font-extrabold text-primary-blue mb-2">Project Title</h3>
+                    <p id="modal-subtitle" class="text-lg text-gray-600 mb-8 border-b pb-4">Short description.</p>
+                    
+                    <!-- Image Gallery Grid -->
+                    <div id="modal-gallery" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Images will be injected here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="bg-dark-text text-white py-8">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm">
+                <p>&copy; 2025 MARY GRACE R. ALA. All rights reserved. | <span class="text-accent-gold">KOSMOS</span></p>
+                <p class="mt-2 text-gray-400">Designed with Arimo and a Navy/Gold palette.</p>
+            </div>
+        </footer>
+    </div>
+    <!-- MAIN PORTFOLIO CONTENT END -->
+
+    <!-- JavaScript for Mobile Menu Toggle and Modal Logic -->
+    <script>
+        // Data structure to hold project details and sample images
+        const projectData = {
+            'ovpaa': {
+                title: "DRAFTED LOGO DESIGN (OVPAA)",
+                subtitle: "Brand Identity, Typography, and Color Palette for Academic Affairs.",
+                images: [
+                    '__image_asset_url(\'image_2095df.png-d3279ef2-91b2-48f9-9363-008eed09e495\')',
+                    'https://placehold.co/600x400/005a96/FCFAFD?text=OVPAA+Typography&font=Arimo',
+                    'https://placehold.co/600x400/002b5c/FCFAFD?text=OVPAA+Color+Draft&font=Arimo',
+                    'https://placehold.co/600x400/003670/FCFAFD?text=Digital+Mockup+I&font=Arimo'
+                ]
+            },
+            'abstract': {
+                title: "ABSTRACT LOGO CONCEPT",
+                subtitle: "A geometric and dynamic design concept focusing on movement and connection.",
+                images: [
+                    '__image_asset_url(\'image_208eb1.png-eebc1547-1a15-4721-b339-0b453a1892e6\')',
+                    'https://placehold.co/600x400/ffc300/111000?text=Abstract+Concept+B&font=Arimo',
+                    'https://placehold.co/600x400/f57c00/111000?text=Wireframe+Study&font=Arimo',
+                    'https://placehold.co/600x400/bf5a00/111000?text=Brand+Applications&font=Arimo'
+                ]
+            },
+            'cupaa': {
+                title: "CUPAA BRAND IDENTITY CONCEPT",
+                subtitle: "Developing a cohesive visual identity, including logos, colors, and application mockups.",
+                images: [
+                    '__image_asset_url(\'image_2af7c0.png-d4184b87-cc08-440d-908a-5441b6105bf1\')',
+                    'https://placehold.co/600x400/3c3e41/FCFAFD?text=CUPAA+Stationery+Mockup&font=Arimo',
+                    'https://placehold.co/600x400/55585d/FCFAFD?text=Website+Element+Draft&font=Arimo',
+                    'https://placehold.co/600x400/7a7d81/FCFAFD?text=Social+Media+Template&font=Arimo'
+                ]
+            },
+            'endlesscare_skincare': {
+                title: "SKINCARE JOURNEY MOCKUP",
+                subtitle: "Complete packaging design and visual story for a fictional skincare line, ENDLESS CARE.",
+                images: [
+                    '__image_asset_url(\'image_2a87dd.png-060f697f-fcec-4713-b6f0-5349f9fae721\')',
+                    'https://placehold.co/600x400/e91e63/FCFAFD?text=Bottle+Design+Mockup&font=Arimo',
+                    'https://placehold.co/600x400/c2185b/FCFAFD?text=Box+Packaging+Detail&font=Arimo',
+                    'https://placehold.co/600x400/9c27b0/FCFAFD?text=Ad+Banner+Concept&font=Arimo'
+                ]
+            },
+            'endlesscare_pattern': {
+                title: "ENDLESS CARE BRAND PATTERN",
+                subtitle: "Developing subtle, repeating visual textures for background use in the skincare brand identity.",
+                images: [
+                    'https://placehold.co/600x400/f48fb1/111000?text=ENDLESS+CARE+Pattern&font=Arimo',
+                    'https://placehold.co/600x400/ce93d8/111000?text=Pattern+Application+1&font=Arimo',
+                    'https://placehold.co/600x400/f8bbd0/111000?text=Pattern+Application+2&font=Arimo',
+                    'https://placehold.co/600x400/ba68c8/111000?text=Textured+Mockup&font=Arimo'
+                ]
+            },
+            'smartbus': {
+                title: "SMARTBUS PROMOTIONAL POSTER",
+                subtitle: "High-impact poster design promoting a modern, sustainable mobility service.",
+                images: [
+                    'https://placehold.co/600x400/00b894/FCFAFD?text=SMARTBUS+Poster+Vertical&font=Arimo',
+                    'https://placehold.co/600x400/009688/FCFAFD?text=SMARTBUS+Social+Ad&font=Arimo',
+                    'https://placehold.co/600x400/4db6ac/FCFAFD?text=SMARTBUS+Bus+Mockup&font=Arimo',
+                    'https://placehold.co/600x400/26a69a/FCFAFD?text=SMARTBUS+Billboard&font=Arimo'
+                ]
+            },
+            'event_poster': {
+                title: "SMARTBUS EVENT POSTER",
+                subtitle: "A dynamic and informative poster designed for a fictional SmartBus launch event.",
+                images: [
+                    'https://placehold.co/600x400/00b894/FCFAFD?text=Sustainable+Mobility+Poster&font=Arimo',
+                    'https://placehold.co/600x400/388e3c/FCFAFD?text=Event+Details+Close+Up&font=Arimo',
+                    'https://placehold.co/600x400/66bb6a/FCFAFD?text=Digital+Screen+Mockup&font=Arimo',
+                    'https://placehold.co/600x400/81c784/FCFAFD?text=Social+Media+Post+A&font=Arimo'
+                ]
+            },
+            'cookie_ad': {
+                title: "SANDWICH COOKIE AD LAYOUT",
+                subtitle: "Food advertisement design focusing on product appeal, composition, and vibrant color usage.",
+                images: [
+                    'https://placehold.co/600x400/ffa500/111000?text=SANDWICH+COOKIE+AD&font=Arimo',
+                    'https://placehold.co/600x400/ffb74d/111000?text=Close-up+Detail+Shot&font=Arimo',
+                    'https://placehold.co/600x400/ff8f00/111000?text=Packaging+Mockup+A&font=Arimo',
+                    'https://placehold.co/600x400/e65100/111000?text=Magazine+Spread&font=Arimo'
+                ]
+            },
+            'generic_poster': {
+                title: "GENERIC SAMPLE POSTER",
+                subtitle: "High-impact layout example suitable for various events or announcements using bold typography and color.",
+                images: [
+                    'https://placehold.co/600x400/e74c3c/FCFAFD?text=High-Impact+Event+Design&font=Arimo',
+                    'https://placehold.co/600x400/c0392b/FCFAFD?text=Alternative+Color+Scheme&font=Arimo',
+                    'https://placehold.co/600x400/9b59b6/FCFAFD?text=Billboard+Mockup&font=Arimo',
+                    'https://placehold.co/600x400/8e44ad/FCFAFD?text=Magazine+Ad+Version&font=Arimo'
+                ]
+            }
+        };
+
+        function generateGalleryHTML(images) {
+            let html = '';
+            images.forEach((src, index) => {
+                const isMainImage = index === 0;
+                const sizeClass = isMainImage ? 'col-span-1 sm:col-span-2' : 'col-span-1';
+                const heightClass = isMainImage ? 'h-72 sm:h-96' : 'h-48';
+
+                html += `
+                    <div class="${sizeClass} ${heightClass} bg-gray-100 rounded-lg overflow-hidden shadow-lg border-2 border-primary-blue/10 transform hover:scale-[1.01] transition duration-300">
+                        <img src="${src}" 
+                             onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/666666?text=Image+Unavailable';"
+                             alt="Project Sample ${index + 1}" 
+                             class="w-full h-full object-cover transition duration-500 hover:opacity-90"/>
+                    </div>
+                `;
+            });
+            return html;
+        }
+
+        function openModal(projectId) {
+            const project = projectData[projectId];
+            if (!project) return;
+
+            // Populate the modal content
+            document.getElementById('modal-title').textContent = project.title;
+            document.getElementById('modal-subtitle').textContent = project.subtitle;
+            document.getElementById('modal-gallery').innerHTML = generateGalleryHTML(project.images);
+            
+            // Show the modal and hide scroll on body
+            const modal = document.getElementById('project-modal');
+            modal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('project-modal');
+            modal.classList.remove('open');
+            // Only restore scroll if the splash screen has been removed
+            if (!document.getElementById('splash-screen')) {
+                document.body.style.overflow = 'auto'; 
+            }
+        }
+        
+        // -----------------------------------------------------------------
+        // SPLASH SCREEN LOGIC
+        // -----------------------------------------------------------------
+
+        const splashScreen = document.getElementById('splash-screen');
+        const splashText = document.getElementById('splash-text');
+        const mainContent = document.getElementById('main-content');
+        let flashCount = 0;
+        const totalFlashes = 2; // How many times the text flashes
+
+        function flashText(callback) {
+            if (flashCount < totalFlashes) {
+                setTimeout(() => {
+                    // Fade in
+                    splashText.classList.remove('opacity-0'); 
+                    setTimeout(() => {
+                        // Fade out
+                        splashText.classList.add('opacity-0'); 
+                        flashCount++;
+                        flashText(callback);
+                    }, 700); // Text visible duration
+                }, 300); // Delay before next flash
+            } else {
+                // Wait a moment after the last flash fade-out before starting the transition
+                setTimeout(callback, 500); 
+            }
+        }
+
+        function startPortfolio() {
+            mainContent.classList.remove('hidden'); // 1. Show main content
+            
+            // 2. Start the splash screen fade out
+            splashScreen.classList.add('opacity-0');
+
+            // 3. Remove the splash screen after transition completes (1000ms)
+            setTimeout(() => {
+                splashScreen.remove();
+                document.body.style.overflow = 'auto'; // Restore scroll
+            }, 1000); 
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (mobileMenuButton) {
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+            
+            // Close modal when pressing the Escape key (existing logic)
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && document.getElementById('project-modal').classList.contains('open')) {
+                    closeModal();
+                }
+            });
+
+            // Execute the splash screen sequence
+            document.body.style.overflow = 'hidden'; // Prevent initial scrolling
+            flashText(startPortfolio);
+        });
+    </script>
+</body>
+</html>
