@@ -465,13 +465,21 @@
                 </div>
             </div>
 
-            <footer class="bg-dark-text text-white py-8">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm">
-                    <p>&copy; 2025 MARY GRACE R. ALA. All rights reserved.</p>
-                </div>
-            </footer>
-        </main>
-    </div>
+                   <!-- Footer -->
+                    <footer id="contact" class="bg-dark-text text-white py-8 mt-16">
+                        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                            <p class="text-lg font-serif mb-4">
+                                Let's build something amazing together.
+                            </p>
+                            <div class="flex justify-center space-x-6 text-2xl mb-4">
+                                <a href="#" class="hover:text-primary transition duration-300" v-html="renderIcon('github', 28)"></a>
+                                <a href="#" class="hover:text-primary transition duration-300" v-html="renderIcon('linkedin', 28)"></a>
+                                <a href="#" class="hover:text-primary transition duration-300" v-html="renderIcon('mail', 28)"></a>
+                            </div>
+                            <p class="text-sm text-gray-400">&copy; {{ new Date().getFullYear() }} Mary Grace R. Ala. All rights reserved.</p>
+                        </div>
+                    </footer>
+    
 
     <script>
         // Project Data for Modal Gallery
